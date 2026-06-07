@@ -1,0 +1,8 @@
+Stop using [old tool] and switch to Framer.
+
+Why?
+Production-ready output
+Figma-like workflow
+Fast publishing
+
+I reviewed it here: https://synthr.online/tool/framer/

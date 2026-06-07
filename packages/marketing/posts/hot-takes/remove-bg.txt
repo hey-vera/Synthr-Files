@@ -1,0 +1,8 @@
+Stop using [old tool] and switch to Remove.bg.
+
+Why?
+Incredible accuracy
+Very fast
+Great API
+
+I reviewed it here: https://synthr.online/tool/remove-bg/

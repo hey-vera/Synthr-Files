@@ -1,0 +1,25 @@
+# Root
+node_modules/
+*.log
+.DS_Store
+.idea/
+*.tar.gz
+*.zip
+
+# Apps
+apps/*/node_modules/
+apps/*/.next/
+apps/*/out/
+apps/*/dist/
+apps/*/.vercel/
+
+# Packages
+packages/*/node_modules/
+packages/*/dist/
+
+# Environment
+.env*
+!.env.example
+
+# OS
+Thumbs.db
