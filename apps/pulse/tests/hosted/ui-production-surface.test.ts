@@ -56,6 +56,7 @@ describe("hosted UI production surface", () => {
     expect(APP_ROUTE_PATHS).toEqual([
       "/",
       "/login",
+      "/signup",
       "/chat-setup",
       "/autopilot",
       "/create",
@@ -66,6 +67,7 @@ describe("hosted UI production surface", () => {
       "/operations",
       "/brand",
       "/settings",
+      "/billing",
     ]);
   });
 
