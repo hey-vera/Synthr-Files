@@ -18,6 +18,10 @@ const dedup = createRuntimeOutreachDedupRepository();
 const originalDataDir = getDataDir();
 const tempDirs = new Set<string>();
 
+function todayKey(): string {
+  return new Date().toISOString().slice(0, 10);
+}
+
 function createTempDataDir(): string {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), "pulse-outreach-dedup-"));
   tempDirs.add(dir);
@@ -75,13 +79,14 @@ describe("runtime outreach dedup", () => {
   it("uses SQL replied ids for hosted outreach state while preserving JSON counters", async () => {
     const tenantAData = createTempDataDir();
     const tenantBData = createTempDataDir();
+    const today = todayKey();
 
     await runInContext(
       tenantContext("tn_outreach_a", tenantAData),
       async () => {
         saveOutreachState({
           repliedIds: ["post_a"],
-          dailyCounts: { "2026-05-26": 1 },
+          dailyCounts: { [today]: 1 },
           lastRunAt: "2026-05-26T12:00:00.000Z",
           totalReplies: 1,
           totalSearches: 3,
@@ -93,7 +98,7 @@ describe("runtime outreach dedup", () => {
       async () => {
         saveOutreachState({
           repliedIds: ["post_b"],
-          dailyCounts: { "2026-05-26": 2 },
+          dailyCounts: { [today]: 2 },
           lastRunAt: "2026-05-26T13:00:00.000Z",
           totalReplies: 2,
           totalSearches: 4,
@@ -106,7 +111,7 @@ describe("runtime outreach dedup", () => {
       async () => {
         expect(loadOutreachState()).toMatchObject({
           repliedIds: ["post_a"],
-          dailyCounts: { "2026-05-26": 1 },
+          dailyCounts: { [today]: 1 },
           totalReplies: 1,
           totalSearches: 3,
         });
@@ -117,7 +122,7 @@ describe("runtime outreach dedup", () => {
       async () => {
         expect(loadOutreachState()).toMatchObject({
           repliedIds: ["post_b"],
-          dailyCounts: { "2026-05-26": 2 },
+          dailyCounts: { [today]: 2 },
           totalReplies: 2,
           totalSearches: 4,
         });
