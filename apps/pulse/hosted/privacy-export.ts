@@ -164,6 +164,7 @@ function getUsersForOrgs(
          u.id,
          u.email,
          u.name,
+         u.email_verified,
          u.created_at,
          u.updated_at,
          m.org_id,
@@ -193,6 +194,7 @@ function getUsersForOrgs(
         id: row.id,
         email: row.email,
         name: row.name,
+        email_verified: row.email_verified,
         created_at: row.created_at,
         updated_at: row.updated_at,
         memberships: [],
@@ -214,7 +216,7 @@ function getUserForScope(
   const db = getHostedDb();
   const base = db
     .prepare(
-      "SELECT id, email, name, created_at, updated_at FROM users WHERE id = ?",
+      "SELECT id, email, name, email_verified, created_at, updated_at FROM users WHERE id = ?",
     )
     .get(userId) as Omit<User, "password_hash"> | undefined;
   if (!base) return null;
